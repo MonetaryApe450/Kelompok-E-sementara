@@ -1,0 +1,35 @@
+def read(a):
+#dengan a adalah csv yang ingin dibaca, fungsi mengembalikan matriks yang berisi value dengan bentuk [[line1],[line2],...]
+    csvfile=open(a,'r')
+    coba=[]
+    array=[[]]
+    for line in csvfile:
+        coba.append(line)
+    for i in range (len(coba)):
+        lokasiKoma=0
+        for j in range (len(coba[i])):
+            kataTerbaca=""
+            if coba[i][j]==',':
+                for k in range(lokasiKoma,j):
+                    kataTerbaca+=coba[i][k]
+                lokasiKoma=j+1
+            if coba[i][j]=="\n":
+                for k in range(lokasiKoma,j):
+                    kataTerbaca+=coba[i][k]
+            if kataTerbaca!="":
+                array[i].append(kataTerbaca)
+        if i!=(len(coba)-1):
+            array.append([])
+    return array
+
+def overwrite(a,b):
+# dengan a adalah csv yang mau di overwrite, dan b adalah matriks baru yang mau mengoverwrite itu
+    csvfile=open(a,'w')
+    longstring=""
+    for i in range (len(b)):
+        for j in range (len(b[i])):
+            longstring+=str(b[i][j])
+            longstring+=','
+        if i!=(len(b)-1):
+            longstring+='\n'
+    csvfile.write(longstring)
